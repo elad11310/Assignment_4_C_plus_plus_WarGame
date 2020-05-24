@@ -20,21 +20,31 @@ namespace WarGame {
 
     class Board {
     private:
-        std::vector<std::vector<Soldier*>> board;
-        int Rows,Cols;
+        std::vector<std::vector<Soldier *>> board;
+        // for saving the players current soldiers
+        int Rows, Cols;
+        int turn;
+
     public:
-        enum MoveDIR { Up, Down, Right, Left };
+        enum MoveDIR {
+            Up, Down, Right, Left
+        };
+
 
         Board(uint numRows, uint numCols) :
-                board(numRows, std::vector<Soldier*>(numCols, nullptr)),Rows(numRows),Cols(numCols) {}
+                board(numRows, std::vector<Soldier *>(numCols, nullptr)), Rows(numRows), Cols(numCols),
+                turn(1) {}
 
+        int& getTurn();
+
+        std::vector<std::vector<Soldier *>> getBoard();
 
 
         // operator for putting soldiers on the game-board during initialization.
-        Soldier*& operator[](std::pair<int,int> location);
+        Soldier *&operator[](std::pair<int, int> location);
 
         // operator for reading which soldiers are on the game-board.
-        Soldier* operator[](std::pair<int,int> location) const;
+        Soldier *operator[](std::pair<int, int> location) const;
 
         // The function "move" tries to move the soldier of player "player"
         //     from the "source" location to the "target" location,
@@ -47,13 +57,16 @@ namespace WarGame {
         // IMPLEMENTATION HINT: Do not write "if" conditions that depend on the type of soldier!
         // Your code should be generic. All handling of different types of soldiers
         //      must be handled by polymorphism.
-        void move(uint player_number, std::pair<int,int> source, MoveDIR direction);
+        void move(uint player_number, std::pair<int, int> source, MoveDIR direction);
 
 
         // returns true iff the board contains one or more soldiers of the given player.
         bool has_soldiers(uint player_number) const;
 
-        std::pair<int,int> checkMove(int i, int j, MoveDIR dir);
+        std::pair<int, int> checkMove(int i, int j, MoveDIR dir);
+
+        // for deleting all the allocations we made in the sub vectors.
+        ~Board();
     };
 
 }

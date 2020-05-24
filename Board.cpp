@@ -16,8 +16,9 @@ bool WarGame::Board::has_soldiers(uint player_number) const {
                 }
             }
         }
-        return false;
+
     }
+    return false;
 
 }
 
@@ -37,17 +38,20 @@ void WarGame::Board::move(uint player_number, std::pair<int, int> source, MoveDI
     int i = source.first;
     int j = source.second;
     // checking if a soldier placed on this source
-    if (board[i][j] != nullptr) {
+    if(board[i][j]!= nullptr){
+    //if ((*this)[source] != nullptr) {
         // checking if we can make a move
         std::pair<int, int> loc = checkMove(i, j, direction);
         int x = loc.first;
         int y = loc.second;
-        if (x!=-1 && y!=-1) {
+        // if we can make a move
+        if (x != -1 && y != -1) {
             // making the recent place to null because we moved.
             board[i][j] = nullptr;
-            // making polymorphism move
+            //(*this)[source] = nullptr;
+            // making polymorphism move - which means each soldier makes his own ability.
+            //(*this)[loc]->move(board, loc);
             board[x][y]->move(board,loc);
-
 
 
         }
@@ -99,4 +103,20 @@ std::pair<int, int> WarGame::Board::checkMove(int i, int j, MoveDIR dir) {
     }
     // if its not possible to move
     return {-1, -1};
+}
+
+WarGame::Board::~Board() {
+    // deleting all the allocations we made
+    for (int i = 0; i < this->board.size(); i++) {
+        for (int j = 0; j < this->board[i].size(); j++) {
+            if (board[i][j] != nullptr) {
+                delete board[i][j];
+            }
+        }
+    }
+}
+
+int& WarGame::Board:: getTurn() {return this->turn;}
+std::vector<std::vector<Soldier*>> WarGame::Board:: getBoard(){
+    return this->board;
 }

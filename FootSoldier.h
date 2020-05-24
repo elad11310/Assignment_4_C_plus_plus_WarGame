@@ -16,10 +16,12 @@ private:
 
 public:
 
-    FootSoldier(int player): Soldier(100,"FootSoldier",player),_damage(10){}
+    FootSoldier(int player) : Soldier(100, "FootSoldier", player), _damage(10) {}
 
-    virtual void move( std::vector<std::vector<Soldier*>> board,std::pair<int, int> _currentPos) override;
+    virtual void move(std::vector<std::vector<Soldier *>> &board , std::pair<int, int> _currentPos) override;
 
     virtual ~FootSoldier();
+
+    int getDamge();
 
 };

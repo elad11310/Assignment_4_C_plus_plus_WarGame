@@ -1,6 +1,10 @@
 #include <iostream>
+#include "Game.h"
 
+using namespace std;
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    WarGame::Game Game;
+    cout << "The winner is:\n" << Game.play() << endl;
     return 0;
 }
+
