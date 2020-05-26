@@ -4,6 +4,8 @@
 
 
 #include "Board.h"
+#include "Paramedic.h"
+#include "ParamedicCommander.h"
 
 
 // checking if there are any soldiers on the board regarding to the player's number
@@ -28,6 +30,7 @@ Soldier *&WarGame::Board::operator[](std::pair<int, int> location) {
     else {
         std::invalid_argument("this place is already been taken by another soldier");
     }
+
 }
 
 Soldier *WarGame::Board::operator[](std::pair<int, int> location) const {
@@ -105,18 +108,30 @@ std::pair<int, int> WarGame::Board::checkMove(int i, int j, MoveDIR dir) {
     return {-1, -1};
 }
 
-WarGame::Board::~Board() {
-    // deleting all the allocations we made
+
+
+int& WarGame::Board:: getTurn() {return this->turn;}
+
+std::vector<std::vector<Soldier*>> WarGame::Board:: getBoard(){
+    return this->board;
+}
+
+bool WarGame::Board:: has_only_paramedics(uint player_number) const{
+
     for (int i = 0; i < this->board.size(); i++) {
         for (int j = 0; j < this->board[i].size(); j++) {
             if (board[i][j] != nullptr) {
-                delete board[i][j];
+                if (board[i][j]->getPlayer() == player_number) {
+                    // checking if the current solder is not paramedic and not paramedic commander
+                   if(typeid(board[i][j])!=typeid(Paramedic*) && typeid(board[i][j])!=typeid(ParamedicCommander*)){
+                       return true;
+                   }
+                }
             }
         }
-    }
-}
 
-int& WarGame::Board:: getTurn() {return this->turn;}
-std::vector<std::vector<Soldier*>> WarGame::Board:: getBoard(){
-    return this->board;
+    }
+    return false;
+
+
 }

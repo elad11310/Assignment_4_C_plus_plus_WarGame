@@ -65,8 +65,9 @@ namespace WarGame {
 
         std::pair<int, int> checkMove(int i, int j, MoveDIR dir);
 
-        // for deleting all the allocations we made in the sub vectors.
-        ~Board();
+        bool has_only_paramedics(uint player_number) const;
+
+
     };
 
 }

@@ -17,7 +17,7 @@
 
 namespace WarGame {
 
-    Game::Game() : board(8, 8) {
+    Game::Game() : board(numRows, numCols) {
         // Add soldiers for player 1:
         assert(!board.has_soldiers(1));
 
@@ -38,7 +38,7 @@ namespace WarGame {
     }
 
     uint Game::play() {
-        std:: pair<int,int> playerChoose;
+        std::pair<int, int> playerChoose;
         Board::MoveDIR directionChoose;
 
         do {
@@ -46,11 +46,14 @@ namespace WarGame {
             directionChoose = chooseDirection();
             board.move(board.getTurn(), playerChoose, directionChoose);
             // for changing the turn
-            board.getTurn() = (  board.getTurn() +   board.getTurn()) % 3;
+            board.getTurn() = (board.getTurn() + board.getTurn()) % 3;
 
+            // if both players has only paramedics left so its a tie.
+            if (!board.has_only_paramedics(1) && !board.has_only_paramedics(2)) {
+                return 0;
+            }
 
-
-        } while (board.has_soldiers(1) || board.has_soldiers(2));
+        } while (board.has_soldiers(1) && board.has_soldiers(2));
 
 //        board.move(1, {0, 1}, Board::MoveDIR::Up);      // FootSoldier of player 1 moves forward and attacks.
 //        if (!board.has_soldiers(2)) return 1;
@@ -72,6 +75,14 @@ namespace WarGame {
 //        }
 
         // If no player won, return "tie":
+
+        if (board.has_soldiers(1)) {
+            return 1;
+
+        } else if (board.has_soldiers(2)) {
+            return 2;
+        }
+
         return 0;
     }
 
@@ -91,9 +102,6 @@ namespace WarGame {
         }
         std::cout << "choose a location of soldier you want to move with: " << std::endl;
         std::cin >> choose.first >> choose.second;
-
-
-
 
 
         return choose;
@@ -119,6 +127,18 @@ namespace WarGame {
 
         }
 
+
+    }
+
+    Game::~Game() {
+        // deleting all the allocations we made
+        for (int iRow = 0; iRow < numRows; ++iRow) {
+            for (int iCol = 0; iCol < numCols; ++iCol) {
+                Soldier *soldier = board[{iRow, iCol}];
+                if (soldier)
+                    delete soldier;
+            }
+        }
     }
 
 }
