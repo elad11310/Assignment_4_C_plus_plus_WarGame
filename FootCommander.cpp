@@ -30,7 +30,7 @@ void FootCommander::move(std::vector<std::vector<Soldier *>> &board, std::pair<i
                         // cast  our soldier to FootCommanderSoldier
                         //board[i][j]->setDamge(dynamic_cast<FootCommander *>(board[x][y])->getDamge());
                         board[i][j]->setDamge(getDamge());
-                        if(!isAlive()){
+                        if(!board[i][j]->isAlive()){
                             delete (board[i][j]);
                             board[i][j] = nullptr;
                         }
@@ -45,10 +45,10 @@ void FootCommander::move(std::vector<std::vector<Soldier *>> &board, std::pair<i
     // now making all the foot soldiers to only shoot.
     for(int i=0;i<board.size();i++){
         for(int j=0;j<board[i].size();j++){
-            // checking if its footsoldier and if its mine.
-            if(typeid(board[i][j])==typeid(FootSoldier) &&board[i][j]->getPlayer()==player){
+            // checking if its not null and footsoldier and if its mine.
+            if( board[i][j] != nullptr && board[i][j]->getName() == std::string("FootSoldier") && board[i][j]->getPlayer()==player){
                 // if its footsoldier make cast to it
-                board[i][j]=(dynamic_cast<FootSoldier*>(board[i][j]));
+                //board[i][j]=(dynamic_cast<FootSoldier*>(board[i][j]));
                 board[i][j]->move(board,_currentPos);
 
             }

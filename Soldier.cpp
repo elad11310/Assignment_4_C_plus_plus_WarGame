@@ -29,7 +29,7 @@ int Soldier:: getPlayer() {return this->_player;}
 Soldier::~Soldier() {};
 
 int Soldier::getHealth() {
-    return this->_health;
+    return this->_current_health;
 }
 std::string Soldier:: getName() {
     return this->_name;

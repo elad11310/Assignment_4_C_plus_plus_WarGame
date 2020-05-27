@@ -3,6 +3,7 @@
 //
 
 #include "FootSoldier.h"
+#include <iostream>
 
 int FootSoldier::getDamge() {
     return this->_damage;
@@ -27,7 +28,7 @@ void FootSoldier::move(std::vector<std::vector<Soldier *>> &board, std::pair<int
                         // cast  our soldier to FootSoldier
                         //board[i][j]->setDamge(dynamic_cast<FootSoldier *>(board[x][y])->getDamge());
                         board[i][j]->setDamge(getDamge());
-                        if(!isAlive()){
+                        if(!board[i][j]->isAlive()){
                             delete (board[i][j]);
                             board[i][j] = nullptr;
                         }

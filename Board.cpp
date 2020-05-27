@@ -6,6 +6,7 @@
 #include "Board.h"
 #include "Paramedic.h"
 #include "ParamedicCommander.h"
+#include <iostream>
 
 
 // checking if there are any soldiers on the board regarding to the player's number
@@ -58,6 +59,13 @@ void WarGame::Board::move(uint player_number, std::pair<int, int> source, MoveDI
 
 
         }
+        else{
+           // std::cout << "not a valid move" << std::endl;
+           throw std:: invalid_argument("Not a vaild a move");
+        }
+    }
+    else{
+        std::cout << "there is already a soldier there" << std::endl;
     }
 
 

@@ -22,8 +22,8 @@
 namespace WarGame {
     class Game {
     private:
-        const int numRows = 8;
-        const int numCols = 8;
+        const int numRows = 4;
+        const int numCols = 4;
         Board board;
     public:
 

@@ -33,7 +33,7 @@ namespace WarGame {
 
         Board(uint numRows, uint numCols) :
                 board(numRows, std::vector<Soldier *>(numCols, nullptr)), Rows(numRows), Cols(numCols),
-                turn(1) {}
+                turn(2) {}
 
         int& getTurn();
 

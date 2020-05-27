@@ -18,21 +18,28 @@
 namespace WarGame {
 
     Game::Game() : board(numRows, numCols) {
-        // Add soldiers for player 1:
-        assert(!board.has_soldiers(1));
-
+//        // Add soldiers for player 1:
+//        assert(!board.has_soldiers(1));
+//
+//        board[{0, 1}] = new FootSoldier(1);
+//        board[{0, 3}] = new FootCommander(1);
+//        board[{0, 5}] = new FootSoldier(1);
+//
+//        assert(board.has_soldiers(1));
+//
+//        // Add soldiers for player 2:
+//        assert(!board.has_soldiers(2));
+//        board[{7, 6}] = new SniperCommander(2);
+//        board[{7, 3}] = new FootCommander(2);
+//        board[{7, 5}] = new FootSoldier(2);
+//        assert(board.has_soldiers(2));
         board[{0, 1}] = new FootSoldier(1);
         board[{0, 3}] = new FootCommander(1);
-        board[{0, 5}] = new FootSoldier(1);
+        board[{1, 2}] = new Paramedic(1);
 
-        assert(board.has_soldiers(1));
-
-        // Add soldiers for player 2:
-        assert(!board.has_soldiers(2));
-        board[{7, 1}] = new Sniper(2);
-        board[{7, 3}] = new FootCommander(2);
-        board[{7, 5}] = new FootSoldier(2);
-        assert(board.has_soldiers(2));
+        board[{3, 1}] = new Sniper(2);
+        board[{3, 3}] = new FootCommander(2);
+        board[{3, 0}] = new FootSoldier(2);
 
         // In your game, you can put more soldier types, such as the sniper and the paramedic types.
     }
@@ -95,7 +102,8 @@ namespace WarGame {
                 if (board.getBoard()[i][j] != nullptr && board.getBoard()[i][j]->getPlayer() == board.getTurn()) {
                     std::cout << board.getBoard()[i][j]->getName() + " Location: ";
                     std::cout << i << " , ";
-                    std::cout << j << std::endl;
+                    std::cout << j << " , ";
+                    std:: cout << "HP : " << board.getBoard()[i][j]->getHealth() << std::endl;
                 }
             }
 

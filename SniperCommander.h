@@ -16,7 +16,7 @@ private:
 
 public:
 
-    SniperCommander(int player) : Soldier(120, "Sniper", player), _damage(100) {}
+    SniperCommander(int player) : Soldier(120, "SniperCommander", player), _damage(100) {}
 
     virtual void move(std::vector<std::vector<Soldier *>> &board, std::pair<int, int> _currentPos) override;
 
